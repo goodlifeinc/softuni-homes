@@ -1,15 +1,16 @@
 <?php get_header(); ?>
 
-<ul class="properties-listing">
+
+<ul class="jobs-listing">
 	<?php if ( have_posts() ) : ?>
 
 		<?php while( have_posts() ) : the_post(); ?>
 
-			<?php get_template_part( 'template-parts/post', 'item' ); ?>
+			<?php get_template_part( 'template-parts/home', 'item' ); ?>
 
 		<?php endwhile; ?>
 
-		<?php posts_nav_link(); ?>
+		<?php //softuni_update_job_views_count( get_the_ID() ); ?>
 
 	<?php endif; ?>
 
