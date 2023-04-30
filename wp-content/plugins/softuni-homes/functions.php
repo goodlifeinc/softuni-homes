@@ -159,7 +159,7 @@ function softuni_display_single_term( $post_id, $taxonomy ) {
 }
 
 /**
- * Display a single post term
+ * Display related homes per location
  *
  * @param integer $home_id
  * @return object|null
