@@ -34,3 +34,9 @@ in the theme folder.
 The db backup can be found at 
 
 `./db_backup/softuni-exam.sql`
+
+## wp-config.php
+
+For the db backup please use the following wp-config
+
+`./wp-config-exam.sql`
