@@ -93,7 +93,7 @@ function softuni_display_home_ad($atts = array(), $content = null, $tag = '') {
         // start catching output
         ob_start();
         while ( $query->have_posts() ) : $query->the_post();
-            get_template_part('template-parts/home', 'item');
+            get_template_part('partials/home', 'item');
         endwhile;
         // dump output into a variable
         $echoed = ob_get_clean();

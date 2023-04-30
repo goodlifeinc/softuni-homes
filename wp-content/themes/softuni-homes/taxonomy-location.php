@@ -7,7 +7,7 @@
 
 		<?php while( have_posts() ) : the_post(); ?>
 
-			<?php get_template_part( 'template-parts/home', 'item' ); ?>
+			<?php get_template_part( 'partials/home', 'item' ); ?>
 
 		<?php endwhile; ?>
 

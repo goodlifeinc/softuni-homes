@@ -20,13 +20,13 @@ if ( have_posts() ) {
 	}
 }
 ?>
-
+123
 <ul class="properties-listing">
 	<?php if ( $homes_query->have_posts() ) : ?>
 
 		<?php while( $homes_query->have_posts() ) : $homes_query->the_post(); ?>
 
-			<?php get_template_part( 'template-parts/home', 'item' ); ?>
+			<?php get_template_part( 'partials/home', 'item' ); ?>
 
 		<?php endwhile; ?>
 
