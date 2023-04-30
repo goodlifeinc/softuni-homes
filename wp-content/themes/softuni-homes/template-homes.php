@@ -30,7 +30,17 @@ if ( have_posts() ) {
 
 		<?php endwhile; ?>
 
-		<?php posts_nav_link(); ?>
+		<div class="pagination">
+			<?php 
+				echo paginate_links( array(
+					'total'        => $homes_query->max_num_pages,
+					'current'      => max( 1, get_query_var( 'paged' ) ),
+					'format'       => '?paged=%#%',
+					'prev_text'    => sprintf( '<i></i> %1$s', __( 'Previous Page', 'softuni' ) ),
+					'next_text'    => sprintf( '%1$s <i></i>', __( 'Next Page', 'softuni' ) )
+				) );
+			?>
+		</div>
 
 	<?php endif; ?>
 
