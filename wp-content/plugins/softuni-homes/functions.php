@@ -96,6 +96,9 @@ add_shortcode( 'display_home', 'softuni_display_home_ad' );
  * @return string
  */
 function change_title_text( $title, $post_id ) {
+    if ( is_admin() ) {
+        return $title;
+    }
     $post_type = get_post_type($post_id);
     if ( $post_type !== 'home' ) {
         return $title;
