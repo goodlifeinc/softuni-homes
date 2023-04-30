@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<ul class="jobs-listing">
+<ul class="properties-listing">
 	<?php if ( have_posts() ) : ?>
 
 		<?php softuni_update_home_visit_count( get_the_ID() ); ?>

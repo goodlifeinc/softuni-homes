@@ -41,14 +41,14 @@ function softuni_display_home_ad($atts = array(), $content = null, $tag = '') {
     }
 
     $options = array(
-        'post_type' => 'home',
-        'p'         => $home_id,
-        'status'    => 'published'
+        'post_type'     => 'home',
+        'p'             => $home_id,
+        'post_status'   => 'publish'
     );
 
     $query = new WP_Query( $options );
     if ( $query->have_posts() ) {
-        $output .= '<ul class="">';
+        $output .= '<ul class="properties-listing">';
         while ( $query->have_posts() ) : $query->the_post();
             $visit_count = get_post_meta( get_the_ID(), 'visits_count', true );
             if (empty($visit_count)) {
@@ -82,8 +82,32 @@ function softuni_display_home_ad($atts = array(), $content = null, $tag = '') {
         $output .= '</ul>';
     } else {
         $output .= '<p>Home ' . $home_id . ' does not exist';
-    } 
+    }
 
     return $output;
 }
 add_shortcode( 'display_home', 'softuni_display_home_ad' );
+
+/**
+ * Adds locations hashtags of a home to the title.
+ *
+ * @param string $title
+ * @param string $post_id
+ * @return string
+ */
+function change_title_text( $title, $post_id ) {
+    $post_type = get_post_type($post_id);
+    if ( $post_type !== 'home' ) {
+        return $title;
+    }   
+    $taxonomies = get_object_taxonomies($post_type);   
+    $taxonomy_names = wp_get_object_terms($post_id, $taxonomies,  array("fields" => "names"));
+
+    if ( !empty( $taxonomy_names ) ) {
+        $title .= ' #offer ' . join(' ', array_map(function($item) {
+            return '#' . $item;
+        }, $taxonomy_names));
+    }
+    return $title;
+}
+add_filter( 'the_title', 'change_title_text', 10, 2 );
