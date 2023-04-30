@@ -90,39 +90,16 @@ function softuni_display_home_ad($atts = array(), $content = null, $tag = '') {
     $query = new WP_Query( $options );
     if ( $query->have_posts() ) {
         $output .= '<ul class="properties-listing">';
+        // start catching output
+        ob_start();
         while ( $query->have_posts() ) : $query->the_post();
-            $visit_count = get_post_meta( get_the_ID(), 'visits_count', true );
-            if (empty($visit_count)) {
-                $visit_count = 0;
-            }
-            $output .= '<li class="property-card">';
-            $output .= '<div class="property-primary">';
-            $output .= '<h2 class="property-title"><a href="'. get_the_permalink() .'">'. get_the_title() .'</a></h2>';
-            $output .= '<div class="property-meta">';
-            $output .= '    <span class="meta-location">Location: '. softuni_display_single_term( get_the_ID(), 'location' ) .'</span>';
-            $output .= '    <span class="meta-total-area">Total area: 91.65 sq.m</span>';
-            $output .= '    <span class="meta-visits-count">Visits: '. $visit_count .'</span>';
-            $output .= '</div>';
-            $output .= '<div class="property-details">';
-            $output .= '    <span class="property-price">€ 100,815</span>';
-            $output .= '    <span class="property-date">';
-            $output .= '        '. get_the_date();
-            $output .= '    </span>';
-            $output .= '    <span class="property-date">';
-            $output .= '        '. get_the_author();
-            $output .= '    </span>';
-            $output .= '</div>';
-            $output .= '        </div>';
-            $output .= '        <div class="property-image">';
-            $output .= '            <div class="property-image-box">';
-            $output .= '                <img src="'. has_post_thumbnail() ? get_the_post_thumbnail() : get_stylesheet_directory_uri() .'/assets/images/bedroom.jpg" alt="property image">';
-            $output .= '            </div>';
-            $output .= '        </div>';
-            $output .= '</li>';
+            get_template_part('template-parts/home', 'item');
         endwhile;
-        $output .= '</ul>';
+        // dump output into a variable
+        $echoed = ob_get_clean();
+        $output .= $echoed . '</ul>';
     } else {
-        $output .= '<p>Home ' . $home_id . ' does not exist';
+        $output .= '<p>Home "' . $home_id . '" does not exist';
     }
 
     return $output;
