@@ -4,7 +4,8 @@
   "description": "A static HTML files for properties website.",
   "main": "index.js",
   "scripts": {
-    "start": "sass --watch sass/master.scss:css/master.css",
+    "start": "sass --watch assets/sass/master.scss:assets/css/master.css",
+    "build": "sass --style=compressed assets/sass:assets/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
