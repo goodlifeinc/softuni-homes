@@ -1,3 +1,9 @@
+<?php
+$likes = get_post_meta( get_the_ID(), 'likes', true );
+if (empty($likes)) {
+    $likes = 0;
+}
+?>
 <div class="property-single">
     <main class="property-main">
         <div class="property-card">
@@ -57,6 +63,6 @@
                 <img src="<?php echo has_post_thumbnail() ? the_post_thumbnail() : get_stylesheet_directory_uri(); ?>/assets/images/bedroom.jpg" alt="property image">
             </div>
         </div>
-        <a href="#" class="button button-wide">Like the property</a>
+        <a id="<?php echo get_the_ID(); ?>" href="#" class="button button-wide like-button">Like the property (<span id="likes-count"><?php echo $likes; ?></span>)</a>
     </aside>
 </div>
