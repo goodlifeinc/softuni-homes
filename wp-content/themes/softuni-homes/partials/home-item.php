@@ -25,7 +25,7 @@ if (empty($visit_count)) {
     </div>
     <div class="property-image">
         <div class="property-image-box">
-            <img src="<?php echo has_post_thumbnail() ? the_post_thumbnail() : get_stylesheet_directory_uri(); ?>/assets/images/bedroom.jpg" alt="property image">
+            <img src="<?php echo has_post_thumbnail() ? the_post_thumbnail() : get_template_directory_uri(); ?>/assets/images/bedroom.jpg" alt="property image">
         </div>
     </div>
 </li>

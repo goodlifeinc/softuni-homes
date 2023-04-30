@@ -57,7 +57,7 @@ if (empty($likes)) {
     <aside class="property-secondary">
         <div class="property-image property-image-single">
             <div class="property-image-box property-image-box-single">
-                <img src="<?php echo has_post_thumbnail() ? the_post_thumbnail() : get_stylesheet_directory_uri(); ?>/assets/images/bedroom.jpg" alt="property image">
+                <img src="<?php echo has_post_thumbnail() ? the_post_thumbnail() : get_template_directory_uri(); ?>/assets/images/bedroom.jpg" alt="property image">
             </div>
         </div>
         <a id="<?php echo get_the_ID(); ?>" href="#" class="button button-wide like-button">Like the property (<span id="likes-count"><?php echo $likes; ?></span>)</a>
