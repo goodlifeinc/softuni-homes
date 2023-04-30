@@ -6,7 +6,7 @@ $archive_month = get_the_time( 'm' );
     <div class="property-primary">
         <h2 class="property-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
         <div class="property-meta">
-            <span><?php the_excerpt(); ?></span>
+            <span><?php the_content(); ?></span>
         </div>
         <div class="property-details">
             <span class="property-date">

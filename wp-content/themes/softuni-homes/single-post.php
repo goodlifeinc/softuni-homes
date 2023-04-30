@@ -6,11 +6,9 @@
 
 	<?php while( have_posts() ) : the_post(); ?>
 
-		<?php get_template_part( 'partials/home', 'single' ); ?>
+		<?php get_template_part( 'template-parts/post', 'single' ); ?>
 
 	<?php endwhile; ?>
-
-	<?php get_template_part( 'partials/home', 'similar' ) ?>
 
 <?php endif; ?>
 

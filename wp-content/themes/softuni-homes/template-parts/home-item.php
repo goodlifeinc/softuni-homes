@@ -9,17 +9,17 @@ if (empty($visit_count)) {
     <div class="property-primary">
         <h2 class="property-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
         <div class="property-meta">
-            <span class="meta-location">Ovcha Kupel, Sofia</span>
+            <span class="meta-location">Location: <?php echo softuni_display_single_term( get_the_ID(), 'location' ); ?></span>
             <span class="meta-total-area">Total area: 91.65 sq.m</span>
             <span class="meta-visits-count">Visits: <?php echo $visit_count; ?></span>
         </div>
         <div class="property-details">
             <span class="property-price">€ 100,815</span>
             <span class="property-date">
-                <?php the_date(); ?>
+                <?php echo get_the_date(); ?>
             </span>
             <span class="property-date">
-                <?php the_author(); ?>
+                <?php echo get_the_author(); ?>
             </span>
         </div>
     </div>

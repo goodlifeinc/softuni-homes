@@ -29,7 +29,8 @@ function softuni_home_like() {
    $like_number = get_post_meta( $home_id, 'likes', true );
 
    if ( empty( $like_number ) ) {
-       update_post_meta( $home_id, 'likes', 1 );
+       $like_number = 1;
+       update_post_meta( $home_id, 'likes', $like_number );
    } else {
        $like_number = $like_number + 1;
        update_post_meta( $home_id, 'likes', $like_number );
@@ -98,7 +99,7 @@ function softuni_display_home_ad($atts = array(), $content = null, $tag = '') {
             $output .= '<div class="property-primary">';
             $output .= '<h2 class="property-title"><a href="'. get_the_permalink() .'">'. get_the_title() .'</a></h2>';
             $output .= '<div class="property-meta">';
-            $output .= '    <span class="meta-location">Ovcha Kupel, Sofia</span>';
+            $output .= '    <span class="meta-location">Location: '. softuni_display_single_term( get_the_ID(), 'location' ) .'</span>';
             $output .= '    <span class="meta-total-area">Total area: 91.65 sq.m</span>';
             $output .= '    <span class="meta-visits-count">Visits: '. $visit_count .'</span>';
             $output .= '</div>';
@@ -146,7 +147,7 @@ function change_title_text( $title, $post_id ) {
     $taxonomies = get_object_taxonomies($post_type);   
     $taxonomy_names = wp_get_object_terms($post_id, $taxonomies,  array("fields" => "names"));
 
-    if ( !empty( $taxonomy_names ) ) {
+    if ( !empty( $taxonomy_names ) && is_array( $taxonomy_names ) ) {
         $title .= ' #offer ' . join(' ', array_map(function($item) {
             return '#' . $item;
         }, $taxonomy_names));
@@ -154,3 +155,65 @@ function change_title_text( $title, $post_id ) {
     return $title;
 }
 add_filter( 'the_title', 'change_title_text', 10, 2 );
+
+/**
+ * Display a single post term
+ *
+ * @param integer $post_id
+ * @param string $taxonomy
+ * @return string
+ */
+function softuni_display_single_term( $post_id, $taxonomy ) {
+    $output = '';
+
+    if ( empty( $post_id ) || empty( $taxonomy ) ) {
+        return $output;
+    }
+
+    $terms = get_the_terms( $post_id, $taxonomy );
+
+    if ( ! empty( $terms ) && is_array( $terms ) ) {
+        $output .= join(', ', array_map(function($item) {
+            return $item->name;
+        }, $terms));
+    }
+
+    return $output;
+}
+
+/**
+ * Display a single post term
+ *
+ * @param integer $home_id
+ * @return object|null
+ */
+function softuni_display_other_home_per_locations( $home_id ) {
+    if ( empty( $home_id ) ) {
+        return;
+    }
+
+    $terms = get_the_terms( $home_id, 'location' );
+
+    $homes_args = array(
+        'post_type'         => 'home',
+        'post_status'       => 'publish',
+        'orderby'           => 'name',
+        'posts_per_page'    => 2,
+
+        // set a taxonomy query
+        'tax_query'         => array(
+            'taxonomy'      => 'location',
+            'field'         => 'term_id',
+            'terms'         => array_map(function($item) {
+                                return $item->term_id;
+                            }, $terms),
+            'operator'      => 'IN',
+        )
+    );
+
+    $homes_query = new WP_Query( $homes_args );
+
+    if ( ! empty( $homes_query ) ) {
+        return $homes_query;
+    }
+}
