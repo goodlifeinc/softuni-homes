@@ -197,17 +197,18 @@ function softuni_display_other_home_per_locations( $home_id ) {
     $homes_args = array(
         'post_type'         => 'home',
         'post_status'       => 'publish',
-        'orderby'           => 'name',
+        'orderby'           => 'rand',
+        'post__not_in'      => array($home_id),
         'posts_per_page'    => 2,
-
-        // set a taxonomy query
         'tax_query'         => array(
-            'taxonomy'      => 'location',
-            'field'         => 'term_id',
-            'terms'         => array_map(function($item) {
-                                return $item->term_id;
-                            }, $terms),
-            'operator'      => 'IN',
+            array(
+                'taxonomy'      => 'location',
+                'field'         => 'term_id',
+                'terms'         => array_map(function($item) {
+                                    return $item->term_id;
+                                }, $terms),
+                'operator'      => 'IN',
+            )
         )
     );
 
@@ -216,4 +217,6 @@ function softuni_display_other_home_per_locations( $home_id ) {
     if ( ! empty( $homes_query ) ) {
         return $homes_query;
     }
+
+    return null;
 }
