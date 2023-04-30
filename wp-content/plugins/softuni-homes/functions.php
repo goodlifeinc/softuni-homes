@@ -174,7 +174,7 @@ function softuni_display_single_term( $post_id, $taxonomy ) {
 
     if ( ! empty( $terms ) && is_array( $terms ) ) {
         $output .= join(', ', array_map(function($item) {
-            return $item->name;
+            return '<a href="'.get_term_link($item).'">'.$item->name.'</a>';
         }, $terms));
     }
 
