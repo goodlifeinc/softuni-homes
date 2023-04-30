@@ -20,7 +20,6 @@ if ( have_posts() ) {
 	}
 }
 ?>
-123
 <ul class="properties-listing">
 	<?php if ( $homes_query->have_posts() ) : ?>
 
