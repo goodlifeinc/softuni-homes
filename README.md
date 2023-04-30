@@ -28,3 +28,9 @@ In the themes folder is included sass, in order to compile it run:
 `npm run build`
 
 in the theme folder.
+
+## DB
+
+The db backup can be found at 
+
+`./db_backup/softuni-exam.sql`
